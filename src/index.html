@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <script src="./Libs/pep.min.js"></script>
+    <script src="./Libs/jquery-3.6.0.min.js"></script>
+  </head>
+
+  <body>
+    <div id="gameContainer">
+      <canvas id="canvas" touch-action="none"></canvas>
+      <div id="ui">
+        <div id="gameScreen" class="screen">
+          <div id="intro">
+            <div>
+              <h2>Hello and welcome!</h2>
+              <p>
+                Pick one of the two cards. One hides a treasure, the other... a
+                BOMB!!!.
+              </p>
+              <button id="startButton">Start Game</button>
+            </div>
+          </div>
+
+          <div id="gameplay" style="display: none">
+            <h2>Pick a card!</h2>
+            <div class="streak">
+              Streak:
+              <p id="streakCount" class="streak-text">0</p>
+            </div>
+            <p id="resultText"></p>
+            <div id="cardContainer">
+              <div class="card" data-index="0">
+                <div class="card-inner">
+                  <div class="card-front">
+                    <img src="./Textures/Card/backCard.webp" />
+                  </div>
+                  <div class="card-back">
+                    <img
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="card" data-index="1">
+                <div class="card-inner">
+                  <div class="card-front">
+                    <img src="./Textures/Card/backCard.webp" />
+                  </div>
+                  <div class="card-back">
+                    <img
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
