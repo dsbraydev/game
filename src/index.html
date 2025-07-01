@@ -8,6 +8,7 @@
     />
     <script src="./Libs/pep.min.js"></script>
     <script src="./Libs/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
   </head>
 
   <body>
@@ -16,12 +17,15 @@
       <div id="ui">
         <div id="gameScreen" class="screen">
           <div id="intro">
-            <div>
-              <h2>Hello and welcome!</h2>
-              <p>
-                Pick one of the two cards. One hides a treasure, the other... a
-                BOMB!!!.
-              </p>
+            <h1 id="animated-heading">Card Treasure Hunt</h1>
+            <div class="card-group">
+              <img class="card-flip" src="./Textures/Card/backCard.webp" />
+              <img class="card-flip" src="./Textures/Card/backCard.webp" />
+              <img class="card-flip" src="./Textures/Card/backCard.webp" />
+              <img class="card-flip" src="./Textures/Card/backCard.webp" />
+            </div>
+            <div class="fade-up">
+              <p>Select a card to stand a change to WIN BIG!!</p>
               <button id="startButton">Start Game</button>
             </div>
           </div>
@@ -63,5 +67,65 @@
         </div>
       </div>
     </div>
+    <script type="module">
+      const { animate, stagger } = Motion;
+
+      const textEl = document.getElementById("animated-heading");
+      const text = textEl.textContent;
+
+      // Split text into span-wrapped letters
+      textEl.innerHTML = text
+        .split("")
+        .map((char) => `<span>${char === " " ? "&nbsp;" : char}</span>`)
+        .join("");
+
+      // Animate each letter from bottom up with fade in
+      animate(
+        "#animated-heading span",
+        {
+          opacity: [0, 1],
+          y: [40, 0],
+        },
+        {
+          duration: 0.5,
+          delay: stagger(0.06),
+          easing: "ease-out",
+        }
+      );
+      animate(
+        ".fade-up",
+        {
+          opacity: [0, 1],
+          y: [20, 0],
+        },
+        {
+          duration: 0.8,
+          delay: stagger(0.3), // delay between each element
+          easing: "ease-out",
+        }
+      );
+      const cards = document.querySelectorAll(".card-flip");
+      const images = [
+        "./Textures/Card/backCard.webp",
+        "./Textures/Card/treasureCard.webp",
+        "./Textures/Card/bombCard.webp",
+      ];
+
+      function flipRandomly(card) {
+        setInterval(() => {
+          card.classList.add("flipping");
+          setTimeout(() => {
+            const randomImage =
+              images[Math.floor(Math.random() * images.length)];
+            card.src = randomImage;
+            card.classList.remove("flipping");
+          }, 200); // match half the flip time
+        }, Math.random() * 2000 + 1000);
+      }
+
+      cards.forEach((card) => {
+        flipRandomly(card);
+      });
+    </script>
   </body>
 </html>

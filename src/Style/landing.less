@@ -1,0 +1,52 @@
+#intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    gap: 50px;
+    h1 {
+        font-size: 100px;
+    }
+    .fade-up {
+        opacity: 0;
+        will-change: transform, opacity;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-direction: column;
+        p {
+            font-size: 24px;
+        }
+        button {
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 20px;
+            min-width: 200px;
+            background-color: red;
+            border: 1px solid white;
+            cursor: pointer;
+            transition: all 0.25s ease-in-out;
+            &:hover {
+                color: white;
+                opacity: 0.7;
+            }
+        }
+      }
+}
+
+.card-flip {
+    width: 100px;
+    height: 150px;
+    transition: transform 0.4s;
+  }
+
+  .card-group {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .card.flipping {
+    transform: rotateY(180deg);
+  }
