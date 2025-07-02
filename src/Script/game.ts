@@ -18,7 +18,7 @@ const streakTrophies: BABYLON.Mesh[] = [];
 const trophyStartPosition = new BABYLON.Vector3(0, -2, 0);
 const trophySmallScale = new BABYLON.Vector3(0.12, 0.12, 0.12);
 const trophyBigScale = new BABYLON.Vector3(0.5, 0.5, 0.5);
-const trophyStreakBasePos = new BABYLON.Vector3(-7, -3.5, 0);
+const trophyStreakBasePos = new BABYLON.Vector3(-6.5, -3.5, 0);
 const trophySpacing = 1.5;
 
 function animateTrophyToStreak(index: number): Promise<void> {
