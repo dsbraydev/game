@@ -8,6 +8,7 @@
     />
     <script src="./Libs/pep.min.js"></script>
     <script src="./Libs/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
   </head>
 
   <body>
@@ -16,21 +17,63 @@
       <div id="ui">
         <div id="gameScreen" class="screen">
           <div id="intro">
-            <div>
-              <h2>Hello and welcome!</h2>
-              <p>
-                Pick one of the two cards. One hides a treasure, the other... a
-                BOMB!!!.
-              </p>
+            <h1 id="animated-heading">Card Treasure Hunt</h1>
+            <div id="sway" class="card-group">
+              <div class="card-flip">
+                <div class="card-inner">
+                  <div class="card-front">
+                    <img src="./Textures/Card/backCard.webp" />
+                  </div>
+                  <div class="card-back">
+                    <img src="./Textures/Card/treasureCard.webp" />
+                  </div>
+                </div>
+              </div>
+              <div class="card-flip">
+                <div class="card-inner">
+                  <div class="card-front">
+                    <img src="./Textures/Card/backCard.webp" />
+                  </div>
+                  <div class="card-back">
+                    <img src="./Textures/Card/treasureCard.webp" />
+                  </div>
+                </div>
+              </div>
+              <div class="card-flip">
+                <div class="card-inner">
+                  <div class="card-front">
+                    <img src="./Textures/Card/backCard.webp" />
+                  </div>
+                  <div class="card-back">
+                    <img src="./Textures/Card/treasureCard.webp" />
+                  </div>
+                </div>
+              </div>
+              <div class="card-flip">
+                <div class="card-inner">
+                  <div class="card-front">
+                    <img src="./Textures/Card/backCard.webp" />
+                  </div>
+                  <div class="card-back">
+                    <img src="./Textures/Card/treasureCard.webp" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fade-up">
+              <p>Select a card to stand a change to WIN BIG!!</p>
               <button id="startButton">Start Game</button>
             </div>
           </div>
 
           <div id="gameplay" style="display: none">
-            <h2>Pick a card!</h2>
-            <div class="streak">
-              Streak:
-              <p id="streakCount" class="streak-text">0</p>
+            <div class="title-section">
+              <h2 id="sway2">Pick a card!</h2>
+              <div class="streak">
+                <p>Streak:</p>
+                <p id="streakCount" class="streak-text">0</p>
+              </div>
             </div>
             <p id="resultText"></p>
             <div id="cardContainer">
@@ -63,5 +106,80 @@
         </div>
       </div>
     </div>
+    <script type="module">
+      const { animate, stagger } = Motion;
+
+      const textEl = document.getElementById("animated-heading");
+      const text = textEl.textContent;
+
+      textEl.innerHTML = text
+        .split("")
+        .map((char) => `<span>${char === " " ? "&nbsp;" : char}</span>`)
+        .join("");
+
+      animate(
+        "#animated-heading span",
+        {
+          opacity: [0, 1],
+          y: [40, 0],
+        },
+        {
+          duration: 0.5,
+          delay: stagger(0.06),
+          easing: "ease-out",
+        }
+      );
+
+      animate(
+        ".fade-up",
+        {
+          opacity: [0, 1],
+          y: [20, 0],
+        },
+        {
+          duration: 0.8,
+          delay: stagger(0.3),
+          easing: "ease-out",
+        }
+      );
+
+      const cards = document.querySelectorAll(".card-flip");
+      const randomImages = [
+        "./Textures/Card/treasureCard.webp",
+        "./Textures/Card/bombCard.webp",
+      ];
+      const backCardImage = "./Textures/Card/backCard.webp";
+
+      cards.forEach((card) => {
+        const inner = card.querySelector(".card-inner");
+        const frontImg = card.querySelector(".card-front img");
+        const backImg = card.querySelector(".card-back img");
+
+        function flipSequence() {
+          card.classList.add("flipping");
+
+          setTimeout(() => {
+            const randomImage =
+              randomImages[Math.floor(Math.random() * randomImages.length)];
+            backImg.src = randomImage;
+
+            setTimeout(() => {
+              card.classList.remove("flipping");
+
+              setTimeout(() => {
+                backImg.src = backCardImage;
+
+                const delay = Math.random() * 3000 + 1500;
+                setTimeout(flipSequence, delay);
+              }, 800);
+            }, 1200);
+          }, 800);
+        }
+
+        // Start each card with a small random delay
+        const initialDelay = Math.random() * 2500;
+        setTimeout(flipSequence, initialDelay);
+      });
+    </script>
   </body>
 </html>
